@@ -1,0 +1,40 @@
+{
+  "name": "gbook-plugin-lunr",
+  "description": "该插件提供了搜索插件的后端",
+  "main": "index.js",
+  "version": "1.0.0",
+  "engines": {
+    "gbook": ">=1.0.0-pre.0"
+  },
+  "dependencies": {
+    "gbook-plugin-search": "*",
+    "html-entities": "1.2.0",
+    "lunr": "0.5.12"
+  },
+  "homepage": "https://github.com/54dxs/gbook-plugin-lunr",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/54dxs/gbook-plugin-lunr.git"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/54dxs/gbook-plugin-lunr/issues"
+  },
+  "gbook": {
+    "properties": {
+        "maxIndexSize": {
+            "type": "number",
+            "title": "索引的限制大小",
+            "default": 1000000
+        },
+        "ignoreSpecialCharacters": {
+            "type": "boolean",
+            "title": "忽略单词中的特殊字符",
+            "default": false
+        }
+    }
+  },
+  "scripts": {
+    "-prepublish": "cp node_modules/lunr/lunr.min.js ./assets/lunr.min.js"
+  }
+}
