@@ -2,14 +2,14 @@ require([
     'gbook',
     'jquery'
 ], function(gbook, $) {
-    // Define global search engine
+    // 定义全局搜索引擎
     function LunrSearchEngine() {
         this.index = null;
         this.store = {};
         this.name = 'LunrSearchEngine';
     }
 
-    // Initialize lunr by fetching the search index
+    // 通过获取搜索索引初始化lunr
     LunrSearchEngine.prototype.init = function() {
         var that = this;
         var d = $.Deferred();
@@ -25,7 +25,7 @@ require([
         return d.promise();
     };
 
-    // Search for a term and return results
+    // 搜索术语并返回结果
     LunrSearchEngine.prototype.search = function(q, offset, length) {
         var that = this;
         var results = [];

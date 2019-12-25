@@ -4,10 +4,10 @@ var Entities = require('html-entities').AllHtmlEntities;
 var Html = new Entities();
 
 var searchIndex;
-// Called with the `this` context provided by Gitbook
+// 使用Gbook提供的“this”上下文调用
 function getSearchIndex(context) {
     if (!searchIndex) {
-        // Create search index
+        // 创建搜索索引
         var ignoreSpecialCharacters = context.config.get('pluginsConfig.lunr.ignoreSpecialCharacters') || context.config.get('lunr.ignoreSpecialCharacters');
         searchIndex = lunr(function () {
             this.ref('url');
@@ -17,7 +17,7 @@ function getSearchIndex(context) {
             this.field('body');
 
             if (!ignoreSpecialCharacters) {
-                // Don't trim non words characters (to allow search such as "C++")
+                // 不要修剪非文字字符（允许搜索，如“C++”）
                 this.pipeline.remove(lunr.trimmer);
             }
         });
@@ -25,7 +25,7 @@ function getSearchIndex(context) {
     return searchIndex;
 }
 
-// Map of Lunr ref to document
+// Lunr参考文件Map
 var documentsStore = {};
 
 var searchIndexEnabled = true;
@@ -40,7 +40,7 @@ module.exports = {
     },
 
     hooks: {
-        // Index each page
+        // 为每页编制索引
         'page': function(page) {
             if (this.output.name != 'website' || !searchIndexEnabled || page.search === false) {
                 return page;
@@ -52,14 +52,14 @@ module.exports = {
             this.log.debug.ln('index page', page.path);
 
             text = page.content;
-            // Decode HTML
+            // 解码HTML
             text = Html.decode(text);
-            // Strip HTML tags
+            // 删除HTML标记
             text = text.replace(/(<([^>]+)>)/ig, '');
 
             indexSize = indexSize + text.length;
             if (indexSize > maxIndexSize) {
-                this.log.warn.ln('search index is too big, indexing is now disabled');
+                this.log.warn.ln('搜索索引太大，索引现在禁用');
                 searchIndexEnabled = false;
                 return page;
             }
@@ -69,7 +69,7 @@ module.exports = {
                 keywords = page.search.keywords || [];
             }
 
-            // Add to index
+            // 添加到索引
             var doc = {
                 url: this.output.toURL(page.path),
                 title: page.title,
@@ -84,11 +84,11 @@ module.exports = {
             return page;
         },
 
-        // Write index to disk
+        // 将索引写入磁盘
         'finish': function() {
             if (this.output.name != 'website') return;
 
-            this.log.debug.ln('write search index');
+            this.log.debug.ln('编写搜索索引');
             return this.output.writeFile('search_index.json', JSON.stringify({
                 index: getSearchIndex(this),
                 store: documentsStore

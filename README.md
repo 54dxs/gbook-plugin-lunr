@@ -1,12 +1,12 @@
 # lunr
 
-This plugin provides a backend for the [search](https://github.com/GitbookIO/plugin-search) plugin.
+该插件提供了[搜索](https://github.com/54dxs/gbook-plugin-search)插件的后端。
 
-This plugin is a default plugin.
+该插件是默认插件。
 
-### Disable this plugin
+### 禁用此插件
 
-This is a default plugin and it can be disabled using a `book.json` configuration:
+这是默认插件，可以使用以下 `book.json` 配置禁用它：
 
 ```js
 {
@@ -14,11 +14,11 @@ This is a default plugin and it can be disabled using a `book.json` configuratio
 }
 ```
 
-### Limitations
+### 局限性
 
-Lunr can't index a huge book, by default the index size is limited at ~100ko.
+Lunr不能为一本巨大的书编制索引，默认情况下，索引大小限制为 ~100ko
 
-You can change this limit by settings the configuration `maxIndexSize`:
+您可以通过设置配置来更改此限制 `maxIndexSize`：
 
 ```js
 {
@@ -30,9 +30,9 @@ You can change this limit by settings the configuration `maxIndexSize`:
 }
 ```
 
-### Adding keywords to a page
+### 向页面添加关键字
 
-You can specify explicit keywords for any page. When searching for these keywords, the page will rank higher in the results.
+您可以为任何页面指定显式关键字。搜索这些关键字时，页面在结果中的排名会更高。
 
 ```md
 ---
@@ -46,9 +46,9 @@ search:
 This page will rank better if we search for 'keyword1'.
 ```
 
-### Disabling indexing of a page
+### 禁用页面索引
 
-You can disable the indexing of a specific page by adding a YAML header to the page:
+您可以通过向页面添加YAML标头来禁用特定页面的索引编制：
 
 ```md
 ---
@@ -60,10 +60,9 @@ search: false
 This page is not indexed in Lunr.
 ```
 
-### Ignoring special characters
+### 忽略特殊字符
 
-By default, special characters will be taken into account, to allow special searches like "C++" or "#word". You can disable this if your text is essentially English prose with the `ignoreSpecialCharacters` option:
-
+默认情况下，将考虑特殊字符，以允许特殊搜索，例如 "C++" 或 "#word"。如果您的文字基本上是英文散文，则可以禁用此 `ignoreSpecialCharacters` 选项，并带有以下选项：
 
 ```js
 {
